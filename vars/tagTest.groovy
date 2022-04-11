@@ -2,8 +2,8 @@
 
 def call(String name = 'Sandeep Siyadri') {
   echo "Hello, ${name}."
-  def TAG_VERSION = sh(returnStdout: true, script: "git tag --contains").trim()
-  echo "${TAG_VERSION}"
+  /*def TAG_VERSION = sh(returnStdout: true, script: "git tag --contains").trim()
+  echo "${TAG_VERSION}" */
 
   if("${env.BRANCH_NAME}".contains('feature')) {
     pipeline {
@@ -120,7 +120,7 @@ def call(String name = 'Sandeep Siyadri') {
                         }*/
                         checkout([
                             $class: 'GitSCM',
-                            branches: [[name: "refs/tags/${TAG_VERSION}"]],
+                            branches: [[name: "refs/tags/v2.2"]],
                             userRemoteConfigs: [[credentialsId: 'githubcred', url: 'https://github.com/sandeepsiyadri/multibranch-pipeline-demo.git']]
                         ])
                 }
