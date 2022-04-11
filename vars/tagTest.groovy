@@ -2,6 +2,8 @@
 
 def call(String name = 'Sandeep Siyadri') {
   echo "Hello, ${name}."
+  TAG_VERSION = sh(returnStdout: true, script: "git tag --contains").trim()
+  echo "${TAG_VERSION}"
 
   if("${env.BRANCH_NAME}".contains('feature')) {
     pipeline {
@@ -112,10 +114,10 @@ def call(String name = 'Sandeep Siyadri') {
             }
             stage('Tag Checkout') {
                 steps {
-                        script {
+                        /*script {
                             TAG_VERSION = sh(returnStdout: true, script: "git tag --contains").trim()
                             echo "tag version is ${TAG_VERSION}"
-                        }
+                        }*/
                         checkout([
                             $class: 'GitSCM',
                             branches: [[name: "refs/tags/${TAG_VERSION}"]],
