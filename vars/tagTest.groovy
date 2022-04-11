@@ -2,7 +2,7 @@
 
 def call(String name = 'Sandeep Siyadri') {
   echo "Hello, ${name}."
-  TAG_VERSION = sh(returnStdout: true, script: "git tag --contains").trim()
+  def TAG_VERSION = sh(returnStdout: true, script: "git tag --contains").trim()
   echo "${TAG_VERSION}"
 
   if("${env.BRANCH_NAME}".contains('feature')) {
